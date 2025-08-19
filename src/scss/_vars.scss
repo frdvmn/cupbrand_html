@@ -2,11 +2,13 @@
 // colors
 :root {
   // base
-  --font-family: "Open Sans", sans-serif;
+  --font-family: "Montserrat", sans-serif;
   --content-width: 1170px;
   --container-offset: 15px;
   --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
 
   // colors
-  --light-color: #fff;
+  --primary-color: #FF6F31;    /* Оранжевый — основной брендовый цвет */
+  --light-color: #F7F7F7;        /* Светло-серый фон */
+  --dark-color: #1C1C1C;             /* Тёмный текст */
 }
