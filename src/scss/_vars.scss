@@ -3,12 +3,13 @@
 :root {
   // base
   --font-family: "Montserrat", sans-serif;
-  --content-width: 1170px;
+  --content-width: 1536px;
   --container-offset: 15px;
   --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
 
   // colors
   --primary-color: #FF6F31;    /* Оранжевый — основной брендовый цвет */
+  --primary-lighten: #fd9e75;    /* Оранжевый — основной брендовый цвет */
   --light-color: #F7F7F7;        /* Светло-серый фон */
   --dark-color: #1C1C1C;             /* Тёмный текст */
 }
