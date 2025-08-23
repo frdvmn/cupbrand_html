@@ -99,3 +99,10 @@ a {
 .page--ios .dis-scroll {
   position: relative;
 }
+
+.color-primary {
+  color: var(--primary-color);
+}
+.bg-primary {
+  background-color: var(--primary-color);
+}

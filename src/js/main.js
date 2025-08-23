@@ -1,1 +1,2 @@
-import './_components.js';
+import './components/swiper.js';
+import './components/fancybox.js';

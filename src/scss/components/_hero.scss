@@ -1,5 +1,105 @@
 .hero {
   &__container {
     @include section-container;
+    padding: 25px;
+    background-image: url("../img/hero_bg.svg");
+    background-repeat: no-repeat;
+    background-position: center 300px;
+    position: relative;
   }
+  &__brand {
+    font-weight: 600;
+    font-size: 40px;
+    position: relative;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    &--container {
+      text-align: center;
+      margin-top: 60px;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: var(--primary-color);
+      width: 44px;
+      height: 5px;
+      top: 50%;
+      left: -55px;
+      transform: translateY(-50%);
+    }
+  }
+  &__title {
+    font-weight: 800;
+    font-size: 64px;
+    text-transform: uppercase;
+    color: var(--dark-color);
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+  &__subtitle {
+    font-weight: 400;
+    font-size: 32px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 180px;
+  }
+  &__swiper{
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 0;
+    .swiper-slide {
+      a {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  &__quote {
+    font-size: 32px;
+  }
+  &__highlight {
+    background-color: var(--primary-color);
+    border-radius: 50px;
+  }
+  &__vk {
+    width: 34px;
+    height: 34px;
+    fill: white;
+  }
+  &__social{
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    display: flex;
+    padding: 10px;
+    transition: 0.2s ease all;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    &:hover{
+      background-color: var(--primary-lighten);
+      border-color: var(--primary-lighten);
+      cursor: pointer;
+    }
+  }
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--primary-color);
+}
+.swiper-button-next, .swiper-button-prev{
+  color: var(--primary-color);
 }
