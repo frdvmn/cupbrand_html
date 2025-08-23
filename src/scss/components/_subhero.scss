@@ -1,0 +1,68 @@
+.subhero {
+  &__container {
+    @include section-container;
+    position: relative;
+  }
+  &__title {
+    @include text-title
+  }
+  &__advantages {
+    display: flex;
+    margin-bottom: 25px;
+  }
+  &__advantage {
+    padding: 20px;
+    background-color: var(--light-color);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    margin-bottom: 15px;
+    &--primary {
+      background-color: var(--primary-color);
+      padding: 20px;
+      color: white;
+      border-radius: 15px;
+      margin-right: 15px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+    }
+    &-title {
+      text-transform: uppercase;
+      margin: 0;
+      margin-bottom: 0;
+      font-weight: 700;
+      font-size: 24px;
+      font-family: inherit;
+      margin-bottom: 20px;
+      &--primary {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+    &-subtitle {
+      margin: 0;
+      font-size: 20px;
+    }
+  }
+  &__cta {
+    background-color: var(--primary-color);
+    background-image: url("../img/wrld.svg");
+    background-repeat: no-repeat;
+    padding: 40px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: 48px;
+    text-transform: uppercase;
+    background-position: right center;
+  }
+
+}

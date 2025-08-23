@@ -2,6 +2,7 @@
   &__container {
     @include section-container;
     @include flex-v-center;
+    padding: 8px 12px 8px 12px ;
   }
   &__menu {
     display: inline-block;
