@@ -1,0 +1,185 @@
+.brands {
+  &__container {
+    @include section-container;
+    position: relative;
+    &-form-steps{
+      display: flex;
+      gap: 25px;
+    }
+  }
+  &__title {
+    @include text-title
+  }
+  &__intro {
+    padding: 25px;
+    border-radius: 15px;
+    background-color: var(--light-color);
+    margin-bottom: 25px;
+    &-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0;
+    }
+    &-text {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+  }
+  &__form {
+    padding: 25px;
+    background-color: var(--light-color);
+    border-radius: 15px;
+    flex-basis: 50%;
+    .form {
+      &__title {
+        text-transform: uppercase;
+        font-size: 36px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 25px;
+      }
+      &__textarea {
+        border: 0;
+        background-color: white;
+        border-radius: 15px;
+        padding: 15px 20px 15px 20px;
+        flex-grow: 1;
+        font-family: inherit;
+        font-weight: 400;
+        width: 100%;
+        height: 200px;
+        resize: none;
+        margin-bottom: 10px;
+        display: block;
+        &:focus {
+          outline-color: var(--primary-color);
+          outline-style: solid;
+          outline-width: 1px;
+        }
+        &:active {
+          outline-color: var(--primary-color);
+          outline-style: solid;
+          outline-width: 1px;
+        }
+      }
+      &__input {
+        border: 0;
+        background-color: white;
+        border-radius: 15px;
+        padding: 15px 20px 15px 20px;
+        flex-grow: 1;
+        font-family: inherit;
+        font-weight: 400;
+        &:focus {
+          outline-color: var(--primary-color);
+          outline-style: solid;
+          outline-width: 1px;
+        }
+        &:active {
+          outline-color: var(--primary-color);
+          outline-style: solid;
+          outline-width: 1px;
+        }
+      }
+      &__submit {
+        @include btn-base;
+          color: var(--light-color);
+          &:hover{
+            background-color: var(--primary-lighten);
+            border-color: var(--primary-lighten);
+            cursor: pointer;
+          }
+        width: 100%;
+      }
+      &__checkboxes {
+        display: flex;
+        gap: 5px;
+        border-radius: 15px;
+        padding: 5px;
+        background-color: white;
+        border-radius: 15px;
+        margin-bottom: 10px;
+      }
+      &__inputs {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      &__checkbox {
+        flex-grow: 1;
+        &-input {
+          &:checked {
+            ~ .form__checkbox-label {
+              background-color: var(--primary-color);
+              color: white;
+            }
+          }
+        }
+        &-label {
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          padding: 15px;
+          background-color: var(--light-color);
+          border-radius: 10px;
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  &__steps {
+    padding: 25px;
+    background-color: var(--light-color);
+    border-radius: 15px;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    .steps {
+      &__title {
+        text-transform: uppercase;
+        font-size: 36px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 25px;
+      }
+      &__list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-grow: 1;
+      }
+      &__item {
+        background: white;
+        padding: 20px 20px 20px 80px;
+        border-radius: 15px;
+        flex-grow: 1;
+        font-size: 22px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        position: relative;
+        &::before {
+          content: attr(data-num);
+          position: absolute;
+          left: 25px;
+          background-color: var(--primary-color);
+          color: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+
+
+}
