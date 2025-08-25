@@ -1,0 +1,10 @@
+.franchize {
+  &__container {
+    @include section-container;
+    position: relative;
+  }
+  &__title {
+    @include text-title
+  }
+
+}

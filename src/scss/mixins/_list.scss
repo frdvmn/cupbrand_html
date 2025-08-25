@@ -1,0 +1,19 @@
+@mixin list-line {
+  list-style-type: none;
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 15px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 5px;
+    background-color: var(--primary-color);
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+  }
+}

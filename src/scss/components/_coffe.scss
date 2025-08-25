@@ -1,0 +1,99 @@
+.coffe {
+  &__container {
+    @include section-container;
+    position: relative;
+  }
+  &__title {
+    @include text-title
+  }
+  &__how,
+  &__benefits,
+  &__form {
+    padding: 25px;
+    background-color: var(--light-color);
+    border-radius: 15px;
+  }
+  &__conditions {
+    padding: 25px;
+    background-color: var(--dark-color);
+    border-radius: 15px;
+    color: var(--light-color);
+  }
+  &__benefits-list,
+  &__conditions-list {
+    padding: 0;
+    margin: 0;
+  }
+  &__benefits-item,
+  &__conditions-item {
+    @include list-line;
+    font-size: 20px;
+  }
+  &__form-input {
+    border: 0;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px 20px 15px 20px;
+    flex-grow: 1;
+    font-family: inherit;
+    font-weight: 400;
+    &:focus {
+      outline-color: var(--primary-color);
+      outline-style: solid;
+      outline-width: 1px;
+    }
+    &:active {
+      outline-color: var(--primary-color);
+      outline-style: solid;
+      outline-width: 1px;
+    }
+  }
+  &__form-submit {
+    @include btn-base;
+    color: white;
+    &:hover{
+      background-color: var(--primary-lighten);
+      border-color: var(--primary-lighten);
+      cursor: pointer;
+    }
+  }
+  &__benefits-title,
+  &__conditions-title,
+  &__form-title,
+  &__how-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  &__how-subtitle {
+    font-size: 20px;
+    margin: 0;
+  }
+  &__content {
+    display: flex;
+    gap: 25px;
+    &-left,
+    &-right {
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      flex-grow: 1;
+    }
+  }
+  &__form,
+  &__benefits {
+    flex-grow: 1;
+  }
+  &__form-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  &__form-submit {
+    width: 100%;
+  }
+
+
+}
