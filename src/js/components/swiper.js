@@ -9,8 +9,8 @@ const swiper = new Swiper('.hero__swiper', {
     el: '.swiper-pagination',
   },
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+    nextEl: '.hero__swiper-next',
+    prevEl: '.hero__swiper-prev',
   },
 });
 

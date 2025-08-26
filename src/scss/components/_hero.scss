@@ -2,14 +2,10 @@
   &__container {
     @include section-container;
     padding: 25px;
-    background-image: url("../img/hero_bg.svg");
-    background-repeat: no-repeat;
-    background-position: center 300px;
-    position: relative;
   }
   &__brand {
     font-weight: 600;
-    font-size: 40px;
+    @include adaptiv-font(40, 30);
     position: relative;
     display: inline-block;
     margin-top: 0;
@@ -31,7 +27,7 @@
   }
   &__title {
     font-weight: 800;
-    font-size: 64px;
+    @include adaptiv-font(64, 24);
     text-transform: uppercase;
     color: var(--dark-color);
     margin-top: 20px;
@@ -40,7 +36,7 @@
   }
   &__subtitle {
     font-weight: 400;
-    font-size: 32px;
+    @include adaptiv-font(32, 18);
     text-align: center;
     margin-top: 10px;
     margin-bottom: 180px;
@@ -69,7 +65,7 @@
     align-items: flex-end;
   }
   &__quote {
-    font-size: 32px;
+    @include adaptiv-font(32, 24);
   }
   &__highlight {
     background-color: var(--primary-color);
@@ -95,6 +91,47 @@
       cursor: pointer;
     }
   }
+  &__bg,
+  &__cup {
+    position: absolute;
+    top: 42%;
+  }
+  &__bg {
+    left: 29%;
+  }
+  &__cup {
+    left: 20%;
+  }
+  &__swiper-prev,
+  &__swiper-next{
+    position: absolute;
+    bottom: 5px;
+    background: var(--primary-color);
+    z-index: 99;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transform: scale(1);
+    transition: 0.2s ease all;
+    &:hover {
+      transform: scale(0.9);
+    }
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+  }
+  &__swiper-prev {
+    left: 5px;
+  }
+  &__swiper-next {
+    right: 5px;
+  }
 }
 
 .swiper-pagination-bullet-active {
@@ -102,4 +139,19 @@
 }
 .swiper-button-next, .swiper-button-prev{
   color: var(--primary-color);
+}
+
+.hero__cup{
+  animation: levitate-animation 2s ease-in-out infinite alternate;
+  transform-origin: center;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes levitate-animation {
+  0% {
+  transform: translate3d(0, 0, 0);
+  }
+  100% {
+  transform: translate3d(0, -10px, 0);
+  }
 }

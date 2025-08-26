@@ -4,14 +4,17 @@
       <div class="header__logo">
         <img loading="lazy" src="img/logo.svg" class="image" width="50px" height="44px" alt="Логотип CupBrand">
       </div>
-      <nav class="header__nav">
+      <nav class="header__nav" data-menu>
         <button class="btn btn-header" aria-label="Сделать заказ">Сделать заказ</button>
         <ul class="header__menu">
-          <li class="header__item"><a href="#brands" class="header__link">Брендам</a></li>
-          <li class="header__item"><a href="#coffe" class="header__link">Кофейням</a></li>
-          <li class="header__item"><a href="#franchize" class="header__link">Франшиза</a></li>
+          <li class="header__item"><a href="#brands" class="header__link" data-menu-item>Брендам</a></li>
+          <li class="header__item"><a href="#coffe" class="header__link" data-menu-item>Кофейням</a></li>
+          <li class="header__item"><a href="#franchize" class="header__link" data-menu-item>Франшиза</a></li>
         </ul>
       </nav>
+      <button class="btn-reset burger" aria-label="Открыть меню" aria-expanded="false" data-burger>
+        <span class="burger__line"></span>
+      </button>
     </div>
   </div>
 </header>

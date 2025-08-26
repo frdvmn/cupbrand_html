@@ -3,6 +3,46 @@
     @include section-container;
     @include flex-v-center;
     padding: 8px 12px 8px 12px ;
+    position: relative;
+  }
+  &__nav {
+    @include small-tablet {
+      z-index: 99;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.05);
+      padding: 10px;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: 0.3s ease all;
+      .btn-header {
+        width: 100%;
+      }
+      .header__item {
+        margin: 0;
+        margin-top: 10px;
+      }
+      .header__link {
+        width: 100%;
+      }
+      .header__menu {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &.menu--active {
+      @include small-tablet {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+    }
   }
   &__menu {
     display: inline-block;
@@ -35,5 +75,15 @@
     img {
       display: block;
     }
+  }
+}
+
+.burger {
+  @include burger;
+  margin-left: auto;
+  margin-right: 10px;
+  display: none;
+  @include small-tablet {
+    display: block;
   }
 }

@@ -34,11 +34,11 @@
       margin: 0;
       margin-bottom: 0;
       font-weight: 700;
-      font-size: 24px;
+      @include adaptiv-font(24, 16);
       font-family: inherit;
       margin-bottom: 20px;
       &--primary {
-        font-size: 22px;
+        @include adaptiv-font(22, 14);
         font-weight: 700;
         margin: 0;
         text-transform: uppercase;
@@ -46,7 +46,8 @@
     }
     &-subtitle {
       margin: 0;
-      font-size: 20px;
+      @include adaptiv-font(20, 14);
+
     }
   }
   &__cta {
@@ -60,7 +61,7 @@
     text-align: center;
     color: white;
     font-weight: 700;
-    font-size: 48px;
+    @include adaptiv-font(48, 32);
     text-transform: uppercase;
     background-position: right center;
   }

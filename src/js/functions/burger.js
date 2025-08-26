@@ -14,11 +14,11 @@ import { enableScroll } from '../functions/enable-scroll.js';
     if (menu?.classList.contains('menu--active')) {
       burger?.setAttribute('aria-expanded', 'true');
       burger?.setAttribute('aria-label', 'Закрыть меню');
-      disableScroll();
+      // disableScroll();
     } else {
       burger?.setAttribute('aria-expanded', 'false');
       burger?.setAttribute('aria-label', 'Открыть меню');
-      enableScroll();
+      // enableScroll();
     }
   });
 
@@ -27,7 +27,7 @@ import { enableScroll } from '../functions/enable-scroll.js';
     burger?.setAttribute('aria-label', 'Открыть меню');
     burger.classList.remove('burger--active');
     menu.classList.remove('menu--active');
-    enableScroll();
+    // enableScroll();
   });
 
   menuItems?.forEach(el => {
@@ -36,7 +36,22 @@ import { enableScroll } from '../functions/enable-scroll.js';
       burger?.setAttribute('aria-label', 'Открыть меню');
       burger.classList.remove('burger--active');
       menu.classList.remove('menu--active');
-      enableScroll();
+      // enableScroll();
     });
   });
+
+  const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+  function handleBreakpointChange(e) {
+    if (e.matches) {
+      burger?.setAttribute('aria-expanded', 'false');
+      burger?.setAttribute('aria-label', 'Открыть меню');
+      burger?.classList.remove('burger--active');
+      menu?.classList.remove('menu--active');
+      // enableScroll();
+    }
+  }
+
+  mediaQuery.addEventListener('change', handleBreakpointChange);
+  handleBreakpointChange(mediaQuery);
 })();

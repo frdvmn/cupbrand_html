@@ -27,7 +27,7 @@
   &__benefits-item,
   &__conditions-item {
     @include list-line;
-    font-size: 20px;
+    @include adaptiv-font(20, 14);
   }
   &__form-input {
     border: 0;
@@ -61,13 +61,13 @@
   &__conditions-title,
   &__form-title,
   &__how-title {
-    font-size: 32px;
+    @include adaptiv-font(32, 22);
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 20px;
   }
   &__how-subtitle {
-    font-size: 20px;
+    @include adaptiv-font(20, 14);
     margin: 0;
   }
   &__content {
