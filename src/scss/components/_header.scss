@@ -19,7 +19,6 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: 0.3s ease all;
       .btn-header {
         width: 100%;
       }
@@ -40,6 +39,7 @@
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
+        transition: 0.3s ease all;
       }
 
     }

@@ -81,6 +81,9 @@
       gap: 25px;
       flex-grow: 1;
     }
+    @include for-desktop {
+      flex-direction: column;
+    }
   }
   &__form,
   &__benefits {

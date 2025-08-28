@@ -9,6 +9,14 @@
   &__advantages {
     display: flex;
     margin-bottom: 25px;
+    @include small-tablet {
+      flex-direction: column;
+    }
+  }
+  &__swiper {
+    @include small-tablet {
+      width: 100%;
+    }
   }
   &__advantage {
     padding: 20px;
@@ -28,6 +36,11 @@
       text-align: center;
       display: flex;
       align-items: center;
+      @include small-tablet {
+        margin-right: 0;
+        margin-bottom: 10px;
+        justify-content: center;
+      }
     }
     &-title {
       text-transform: uppercase;
@@ -61,9 +74,12 @@
     text-align: center;
     color: white;
     font-weight: 700;
-    @include adaptiv-font(48, 32);
+    @include adaptiv-font(48, 24);
     text-transform: uppercase;
     background-position: right center;
+    @include small-tablet {
+      padding: 15px;
+    }
   }
 
 }

@@ -5,6 +5,9 @@
     &-form-steps{
       display: flex;
       gap: 25px;
+      @include for-desktop {
+        flex-direction: column;
+      }
     }
   }
   &__title {
@@ -138,6 +141,9 @@
     flex-basis: 50%;
     display: flex;
     flex-direction: column;
+    @include for-desktop {
+      order: -1;
+    }
     .steps {
       &__title {
         text-transform: uppercase;

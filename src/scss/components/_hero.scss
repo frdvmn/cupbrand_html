@@ -13,6 +13,9 @@
     &--container {
       text-align: center;
       margin-top: 60px;
+      @include tablet {
+        margin-top: 20px;
+      }
     }
     &::before {
       content: '';
@@ -27,7 +30,7 @@
   }
   &__title {
     font-weight: 800;
-    @include adaptiv-font(64, 24);
+    @include adaptiv-font(64, 25);
     text-transform: uppercase;
     color: var(--dark-color);
     margin-top: 20px;
@@ -40,6 +43,9 @@
     text-align: center;
     margin-top: 10px;
     margin-bottom: 180px;
+    @include tablet {
+      margin-bottom: 350px;
+    }
   }
   &__swiper{
     width: 350px;
@@ -47,6 +53,9 @@
     border-radius: 10px;
     margin-left: auto;
     margin-right: 0;
+    @include for-desktop {
+      margin-bottom: 15px;
+    }
     .swiper-slide {
       a {
         width: 100%;
@@ -58,14 +67,20 @@
         height: 100%;
       }
     }
+    @include tablet {
+      width: 100%;
+    }
   }
   &__bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    @include for-desktop {
+      flex-direction: column-reverse;
+    }
   }
   &__quote {
-    @include adaptiv-font(32, 24);
+    @include adaptiv-font(32, 16);
   }
   &__highlight {
     background-color: var(--primary-color);
@@ -90,6 +105,9 @@
       border-color: var(--primary-lighten);
       cursor: pointer;
     }
+    @include mobile {
+      top: 42%;
+    }
   }
   &__bg,
   &__cup {
@@ -98,9 +116,57 @@
   }
   &__bg {
     left: 29%;
+    @include big-desktop {
+      left: 20%;
+      width: 50vw;
+    }
+    @include for-desktop {
+      left: 10%;
+      top: 51%;
+      width: 55vw;
+    }
+    @include tablet {
+      left: 20%;
+      top: 33%;
+      width: 65vw;
+    }
+    @include small-tablet {
+      left: 12%;
+      top: 40%;
+      width: 78vw;
+    }
+    @include mobile {
+      left: 12%;
+      top: 46%;
+      width: 80vw;
+    }
   }
   &__cup {
     left: 20%;
+    @include big-desktop {
+      left: 10%;
+      width: 30vw;
+    }
+    @include for-desktop {
+      left: 0%;
+      top: 52%;
+    }
+    @include tablet {
+      left: 10%;
+      top: 33%;
+      width: 35vw;
+    }
+    @include small-tablet {
+      left: 1%;
+      top: 40%;
+      width: 41vw;
+    }
+    @include mobile {
+      left: 1%;
+      top: 46%;
+      width: 41vw;
+    }
+
   }
   &__swiper-prev,
   &__swiper-next{
