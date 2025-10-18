@@ -32,12 +32,13 @@
           </div>
           <div class="coffe__form">
             <h3 class="coffe__form-title">Заказать бесплатные стаканчики</h3>
-            <form class="coffe__form-form">
+            <form class="coffe__form-form" id="cupsform">
               <div class="coffe__form-inputs">
-                <input type="text" placeholder="Имя" class="coffe__form-input">
-                <input type="text" placeholder="Город" class="coffe__form-input">
-                <input type="tel" placeholder="+7 (___) ___-__-__" class="coffe__form-input" data-phone>
-                <button class="coffe__form-submit" type="submit">Отправить</button>
+                <input name="contact" type="text" placeholder="Имя" class="coffe__form-input">
+                <input name="city" type="text" placeholder="Город" class="coffe__form-input">
+                <input name="phone" type="tel" placeholder="+7 (___) ___-__-__" class="coffe__form-input" data-phone>
+                <input type="hidden" name="type" value="cups">
+                <button class="coffe__form-submit">Отправить</button>
               </div>
             </form>
           </div>
