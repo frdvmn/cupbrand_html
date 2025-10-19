@@ -35,6 +35,7 @@
     border-radius: 15px;
     padding: 15px 20px 15px 20px;
     flex-grow: 1;
+    width: 100%;
     font-family: inherit;
     font-weight: 400;
     &:focus {
@@ -93,6 +94,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    div {
+      flex-grow: 1;
+    }
   }
   &__form-submit {
     width: 100%;

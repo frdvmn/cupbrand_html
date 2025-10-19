@@ -1,75 +1,153 @@
+// src/js/modules/validateForms.js
 import JustValidate from 'just-validate';
 import Inputmask from "../../../node_modules/inputmask/dist/inputmask.es6.js";
 
-export const validateForms = (selector, rules, checkboxes = [], afterSend) => {
-  const form = document?.querySelector(selector);
-  const telSelector = form?.querySelector('input[type="tel"]');
+/**
+ * Валидация и отправка форм
+ * @param {string} selector — селектор формы (#brandform / #cupsform)
+ * @param {GraphModal} modal — экземпляр GraphModal
+ */
+export const validateForms = (selector, modal) => {
+    console.log('🔥 Вызов validateForms для:', selector, new Error().stack);
 
-  if (!form) {
-    console.error('Нет такого селектора!');
-    return false;
-  }
+  const form = document.querySelector(selector);
+  if (!form) return;
 
-  if (!rules) {
-    console.error('Вы не передали правила валидации!');
-    return false;
-  }
+  const isBrand = selector === '#brandform';
+  const isCups = selector === '#cupsform';
 
-  if (telSelector) {
-    const inputMask = new Inputmask('+7 (999) 999-99-99');
-    inputMask.mask(telSelector);
-
-    for (let item of rules) {
-      if (item.tel) {
-        item.rules.push({
-          rule: 'function',
-          validator: function() {
-            const phone = telSelector.inputmask.unmaskedvalue();
-            return phone.length === 10;
-          },
-          errorMessage: item.telError
-        });
+  // Маска телефона
+  const phoneInputs = form.querySelectorAll('input[data-phone]');
+  phoneInputs.forEach(input => {
+    if (!input.inputmask) {
+      try {
+        const mask = new Inputmask('+7 (999) 999-99-99');
+        mask.mask(input);
+      } catch (e) {
+        console.warn('Не удалось применить маску', e);
+        // Форма останется работоспособной без маски
       }
     }
+  });
+
+
+  const validator = new JustValidate(selector, {
+    validateBeforeSubmitting: true,
+  });
+
+  // Общие поля
+  validator.addField('[name="contact"]', [
+    { rule: 'required', errorMessage: 'Укажите контактное лицо' },
+    { rule: 'minLength', value: 2, errorMessage: 'Минимум 2 символа' },
+  ]);
+
+  validator.addField('[name="phone"]', [
+    { rule: 'required', errorMessage: 'Укажите телефон' },
+    {
+      rule: 'function',
+      validator: () => {
+        const phoneInput = form.querySelector('input[name="phone"]');
+        if (!phoneInput || !phoneInput.inputmask) return false;
+        const unmasked = phoneInput.inputmask.unmaskedvalue();
+        return unmasked.length === 10;
+      },
+      errorMessage: 'Неверный формат телефона',
+    },
+  ]);
+
+  // === Для формы брендов: валидация размера (чекбокс) ===
+  if (isBrand) {
+    // Добавляем "виртуальное" поле для валидации чекбокса
+    validator.addField('[name="size"]', [
+      {
+        rule: 'function',
+        validator: () => {
+          return form.querySelector('input[name="size"]:checked') !== null;
+        },
+        errorMessage: 'Выберите размер стаканчика',
+      },
+    ]);
+
+    validator.addField('[name="comment"]', [
+      { rule: 'maxLength', value: 500, errorMessage: 'Не более 500 символов' },
+    ]);
   }
 
-  const validation = new JustValidate(selector);
-
-  for (let item of rules) {
-    validation
-      .addField(item.ruleSelector, item.rules);
+  // === Для кофейни: город ===
+  if (isCups) {
+    validator.addField('[name="city"]', [
+      { rule: 'required', errorMessage: 'Укажите город' },
+      { rule: 'minLength', value: 2, errorMessage: 'Минимум 2 символа' },
+    ]);
   }
 
-  if (checkboxes.length) {
-    for (let item of checkboxes) {
-      validation
-        .addRequiredGroup(
-          `${item.selector}`,
-          `${item.errorMessage}`
-        )
+  // Отправка
+validator.onSuccess(async (event) => {
+
+  const submitBtn = event.target.querySelector('.form__submit, .coffe__form-submit');
+
+  // Сохраняем оригинальный текст, если ещё не сохранён
+  if (submitBtn && !submitBtn.dataset.defaultText) {
+    submitBtn.dataset.defaultText = submitBtn.textContent;
+  }
+
+  // Блокируем кнопку
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка...';
+  }
+
+  const formData = new FormData(event.target);
+  const data = {};
+  for (const [key, value] of formData.entries()) {
+    data[key] = value;
+  }
+
+  // === ТАЙМАУТ: 8 секунд ===
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+  try {
+    const res = await fetch('http://localhost:3001/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      signal: controller.signal, // ← привязываем сигнал отмены
+    });
+
+
+    clearTimeout(timeoutId);
+
+    event.target.reset();
+    // const phoneInputs = event.target.querySelectorAll('input[data-phone]');
+    // phoneInputs.forEach(input => {
+    //   if (input) input.value = '';
+    // });
+
+    if (res.ok) {
+      modal.open('success');
+      console.log('success');
+
+    } else {
+      const err = await res.json().catch(() => ({}));
+      document.getElementById('modal-error-text').textContent = err.error || 'Ошибка сервера';
+      modal.open('error');
+    }
+  } catch (e) {
+    clearTimeout(timeoutId);
+
+    let message = 'Не удалось отправить заявку. Попробуйте позже.';
+    if (e.name === 'AbortError') {
+      message = 'Сервер не отвечает. Повторите через минуту.';
+    }
+    document.getElementById('modal-error-text').textContent = message;
+    modal.open('error');
+  } finally {
+    // 🔑 ВСЕГДА разблокируем кнопку — даже если ошибка или таймаут!
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtn.dataset.defaultText;
     }
   }
-
-  validation.onSuccess((ev) => {
-    let formData = new FormData(ev.target);
-
-    let xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          if (afterSend) {
-            afterSend();
-          }
-          console.log('Отправлено');
-        }
-      }
-    }
-
-    xhr.open('POST', 'mail.php', true);
-    xhr.send(formData);
-
-    ev.target.reset();
-  })
-
+});
 };

@@ -66,12 +66,16 @@
           outline-width: 1px;
         }
       }
+      div {
+        flex-grow: 1;
+      }
       &__input {
         border: 0;
         background-color: white;
         border-radius: 15px;
         padding: 15px 20px 15px 20px;
         flex-grow: 1;
+        width: 100%;
         font-family: inherit;
         font-weight: 400;
         &:focus {
