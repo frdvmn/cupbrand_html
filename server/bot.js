@@ -44,7 +44,6 @@ db.serialize(() => {
     )
   `);
 
-  // Индексы для ускорения фильтрации
   db.run('CREATE INDEX IF NOT EXISTS idx_status ON applications(status)');
   db.run('CREATE INDEX IF NOT EXISTS idx_type ON applications(type)');
   db.run('CREATE INDEX IF NOT EXISTS idx_type_status ON applications(type, status)');
@@ -81,10 +80,8 @@ function notifyAdmins(app) {
   let message = '';
 
   if (type === 'cups') {
-    // Только для стаканчиков: город есть, размера и комментария нет
     message = `🥤 Бесплатные стаканчики\n🆕 Заявка #${id}\nКонтакт: ${contact}\nГород: ${city}\nТелефон: ${phone}`;
   } else if (type === 'brand') {
-    // Только для брендов: размер и комментарий есть, города нет
     message = `🏢 Заявка для бренда\n🆕 Заявка #${id}\nКонтакт: ${contact}\nТелефон: ${phone}\nРазмер: ${size || '—'}\nКомментарий: ${comment || '—'}`;
   }
 
@@ -93,8 +90,8 @@ function notifyAdmins(app) {
   const keyboard = {
     inline_keyboard: [
       [{ text: '✅ В работе', callback_data: `status:${id}:в работе` }],
-      [{ text: '❌ Отклонена', callback_data:  `status:${id}:отклонена` }],
-      [{ text: '✔️ Завершена', callback_data:  `status:${id}:завершена` }]
+      [{ text: '❌ Отклонена', callback_data: `status:${id}:отклонена` }],
+      [{ text: '✔️ Завершена', callback_data: `status:${id}:завершена` }]
     ]
   };
 
@@ -137,26 +134,27 @@ if (bot) {
   });
 }
 
-// === 📋 Общая функция фильтрации заявок ===
-function handleApplicationsCommand(msg, match) {
+// === 📋 Функция с пагинацией ===
+function handleApplicationsCommand(msg, match, page = 1) {
   const userId = msg.from.id;
   const filter = (match[2] || '').trim().toLowerCase();
-  let query = `SELECT id, type, contact, phone, status FROM applications`;
+  let baseQuery = `SELECT id, type, contact, phone, status FROM applications`;
+  let countQuery = `SELECT COUNT(*) as total FROM applications`;
   let params = [];
   let desc = '';
 
-  // Фильтр по типу
   if (['стаканчики', 'cups'].some(w => filter.includes(w))) {
-    query += ' WHERE type = ?';
+    baseQuery += ' WHERE type = ?';
+    countQuery += ' WHERE type = ?';
     params.push('cups');
     desc = ' (стаканчики)';
   } else if (['бренд', 'brand'].some(w => filter.includes(w))) {
-    query += ' WHERE type = ?';
+    baseQuery += ' WHERE type = ?';
+    countQuery += ' WHERE type = ?';
     params.push('brand');
     desc = ' (бренды)';
   }
 
-  // Фильтр по статусу (с поддержкой "е" и "ё")
   const statusFilters = [
     { keywords: ['новые'], value: 'новая' },
     { keywords: ['в работе'], value: 'в работе' },
@@ -174,57 +172,79 @@ function handleApplicationsCommand(msg, match) {
   }
 
   if (statusFilter) {
-    query += params.length ? ' AND status = ?' : ' WHERE status = ?';
+    baseQuery += params.length ? ' AND status = ?' : ' WHERE status = ?';
+    countQuery += params.length ? ' AND status = ?' : ' WHERE status = ?';
     params.push(statusFilter);
   }
 
-  // Если нет фильтра — показываем только активные
   if (filter === '' && statusFilter === null && !desc) {
-    query += " WHERE status IN ('новая', 'в работе')";
+    baseQuery += " WHERE status IN ('новая', 'в работе')";
+    countQuery += " WHERE status IN ('новая', 'в работе')";
     desc = ' (активные)';
   }
 
-  query += ' ORDER BY id DESC LIMIT 20';
+  const LIMIT = 5;
+  const OFFSET = (page - 1) * LIMIT;
 
-  db.all(query, params, (err, rows) => {
-    if (err || rows.length === 0) {
+  db.get(countQuery, params, (err, countRow) => {
+    if (err) return bot.sendMessage(userId, '❌ Ошибка подсчёта заявок');
+    const total = countRow.total;
+    const totalPages = Math.ceil(total / LIMIT);
+
+    if (total === 0) {
       return bot.sendMessage(userId, `📭 Нет заявок${desc}.`);
     }
 
-    const list = rows.map(row =>
-      `#${row.id} [${row.type === 'brand' ? '🏢' : '🥤'}] — ${row.contact} — ${getEmoji(row.status)}`
-    ).join('\n');
+    db.all(`${baseQuery} ORDER BY id DESC LIMIT ${LIMIT} OFFSET ${OFFSET}`, params, (err, rows) => {
+      if (err || rows.length === 0) {
+        return bot.sendMessage(userId, `📭 Нет заявок на странице ${page}${desc}.`);
+      }
 
-    const buttons = rows.map(row => ({
-      text: `#${row.id}`,
-      callback_data: `select:${row.id}`
-    }));
+      const list = rows.map(row =>
+        `#${row.id} [${row.type === 'brand' ? '🏢' : '🥤'}] — ${row.contact} — ${getEmoji(row.status)}`
+      ).join('\n');
 
-    const inline_keyboard = [];
-    for (let i = 0; i < buttons.length; i += 5) {
-      inline_keyboard.push(buttons.slice(i, i + 5));
-    }
+      const selectButtons = rows.map(row => ({
+        text: `#${row.id}`,
+        callback_data: `select:${row.id}`
+      }));
 
-    bot.sendMessage(userId, `📋 Заявки${desc}:\n\n${list}\n\n👉 Нажмите на номер заявки для изменения:`, {
-      reply_markup: { inline_keyboard }
+      const inline_keyboard = [];
+      for (let i = 0; i < selectButtons.length; i += 3) {
+        inline_keyboard.push(selectButtons.slice(i, i + 3));
+      }
+
+      const navRow = [];
+      if (page > 1) {
+        navRow.push({ text: '⬅️ Назад', callback_data: `page:${page - 1}:${filter}` });
+      }
+      navRow.push({ text: `${page}/${totalPages}`, callback_data: 'noop' });
+      if (page < totalPages) {
+        navRow.push({ text: 'Вперёд ➡️', callback_data: `page:${page + 1}:${filter}` });
+      }
+      inline_keyboard.push(navRow);
+
+      const messageText = `📋 Заявки${desc} (стр. ${page}/${totalPages}):\n\n${list}\n\n👉 Выберите заявку или листайте страницы:`;
+
+      bot.sendMessage(userId, messageText, {
+        reply_markup: { inline_keyboard }
+      });
     });
   });
 }
 
 // === 📋 Команды /заявки ===
 if (bot) {
-  // /заявки (без параметров) → активные
   bot.onText(/^(\/заявки|\/applications)$/, (msg) => {
-    handleApplicationsCommand(msg, { 2: '' });
+    handleApplicationsCommand(msg, { 2: '' }, 1);
   });
 
-  // /заявки ... (с параметрами)
   bot.onText(/^(\/заявки|\/applications)\s+(.+)$/i, (msg, match) => {
     const userId = msg.from.id;
     if (!ADMIN_IDS.includes(userId)) {
       return bot.sendMessage(userId, '🚫 Доступ запрещён.');
     }
-    handleApplicationsCommand(msg, match);
+    handleApplicationsCommand(msg, match, 1);
   });
 }
 
@@ -233,7 +253,23 @@ if (bot) {
   bot.on('callback_query', (query) => {
     const data = query.data;
     const userId = query.from.id;
+    const chatId = query.message.chat.id;
+    const messageId = query.message.message_id;
 
+    // Пагинация — удаляем и отправляем новое
+    if (data.startsWith('page:')) {
+      bot.deleteMessage(chatId, messageId).catch(() => {});
+      const [, newPage, filter] = data.split(':');
+      const fakeMsg = { from: { id: userId }, chat: { id: userId } };
+      handleApplicationsCommand(fakeMsg, { 2: filter || '' }, parseInt(newPage));
+      return bot.answerCallbackQuery(query.id);
+    }
+
+    if (data === 'noop') {
+      return bot.answerCallbackQuery(query.id);
+    }
+
+    // Выбор заявки
     if (data.startsWith('select:')) {
       const appId = data.split(':')[1];
       db.get('SELECT type, contact, phone, city, size, comment, status FROM applications WHERE id = ?', [appId], (err, row) => {
@@ -243,9 +279,9 @@ if (bot) {
 
         let message = '';
         if (row.type === 'cups') {
-          message = `🥤 Бесплатные стаканчики\n🆔 Заявка #${appId}\nКонтакт: ${row.contact}\nТелефон: ${row.phone}\nРазмер: ${row.size || '—'}\nКомментарий: ${row.comment || '—'}`;
+          message = `🥤 Бесплатные стаканчики\n🆔 Заявка #${appId}\nКонтакт: ${row.contact}\nГород: ${row.city}\nТелефон: ${row.phone}`;
         } else {
-          message = `🏢 Заявка для бренда\n🆔 Заявка #${appId}\nКонтакт: ${row.contact}\nГород: ${row.city || '—'}\nТелефон: ${row.phone}`;
+          message = `🏢 Заявка для бренда\n🆔 Заявка #${appId}\nКонтакт: ${row.contact}\nТелефон: ${row.phone}\nРазмер: ${row.size || '—'}\nКомментарий: ${row.comment || '—'}`;
         }
         message += `\n\nТекущий статус: ${getEmoji(row.status)}`;
 
@@ -258,58 +294,43 @@ if (bot) {
           ]
         };
 
+        // Пытаемся отредактировать, но если не получится — отправим новое
         bot.editMessageText(message, {
-          chat_id: query.message.chat.id,
-          message_id: query.message.message_id,
+          chat_id: chatId,
+          message_id: messageId,
           reply_markup: keyboard,
           parse_mode: 'Markdown'
+        }).catch(() => {
+          bot.sendMessage(chatId, message, { reply_markup: keyboard, parse_mode: 'Markdown' });
         });
+
         bot.answerCallbackQuery(query.id);
       });
+      return;
     }
 
-    else if (data.startsWith('status:')) {
+    // Смена статуса
+    if (data.startsWith('status:')) {
       const [, appId, newStatus] = data.split(':');
       db.run('UPDATE applications SET status = ? WHERE id = ?', [newStatus, appId], () => {
-        bot.editMessageText(
-          `🆔 Заявка #${appId}\nСтатус: *${getEmoji(newStatus)}*`,
-          {
-            chat_id: query.message.chat.id,
-            message_id: query.message.message_id,
-            parse_mode: 'Markdown'
-          }
-        );
+        const statusMsg = `🆔 Заявка #${appId}\nСтатус: *${getEmoji(newStatus)}*`;
+        bot.editMessageText(statusMsg, {
+          chat_id: chatId,
+          message_id: messageId,
+          parse_mode: 'Markdown'
+        }).catch(() => {
+          bot.sendMessage(chatId, statusMsg, { parse_mode: 'Markdown' });
+        });
         bot.answerCallbackQuery(query.id, { text: `Статус изменён на: ${newStatus}` });
       });
+      return;
     }
 
-    else if (data === 'back_to_list') {
-      bot.deleteMessage(query.message.chat.id, query.message.message_id);
-      db.all(`SELECT id, type, contact, phone, status FROM applications
-              WHERE status IN ('новая', 'в работе')
-              ORDER BY id DESC LIMIT 20`, (err, rows) => {
-        if (err || rows.length === 0) {
-          return bot.sendMessage(userId, '📭 Нет активных заявок.');
-        }
-
-        const list = rows.map(row =>
-          `#${row.id} [${row.type === 'brand' ? '🏢' : '🥤'}] — ${row.contact} — ${getEmoji(row.status)}`
-        ).join('\n');
-
-        const buttons = rows.map(row => ({
-          text: `#${row.id}`,
-          callback_data: `select:${row.id}`
-        }));
-
-        const inline_keyboard = [];
-        for (let i = 0; i < buttons.length; i += 5) {
-          inline_keyboard.push(buttons.slice(i, i + 5));
-        }
-
-        bot.sendMessage(userId, `📋 Активные заявки:\n\n${list}\n\n👉 Нажмите на номер заявки для изменения:`, {
-          reply_markup: { inline_keyboard }
-        });
-      });
+    // Назад к списку
+    if (data === 'back_to_list') {
+      bot.deleteMessage(chatId, messageId).catch(() => {});
+      const fakeMsg = { from: { id: userId }, chat: { id: userId } };
+      handleApplicationsCommand(fakeMsg, { 2: '' }, 1);
       bot.answerCallbackQuery(query.id);
     }
   });
@@ -317,13 +338,16 @@ if (bot) {
 
 // === 🌐 Express сервер ===
 const app = express();
-app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
   next();
 });
+
+app.use(bodyParser.json());
 
 app.get('/test', (req, res) => {
   res.json({ ok: true });
@@ -338,14 +362,12 @@ app.post('/api/submit', (req, res) => {
 
   let fields;
   if (type === 'cups') {
-    // Стаканчики: контакт, город, телефон
     const { contact, city, phone } = req.body;
     if (!contact || !city || !phone) {
       return res.status(400).json({ error: 'Для стаканчиков нужны: контактное лицо, город и телефон' });
     }
     fields = { contact, phone, city, size: null, comment: null };
   } else {
-    // Бренды: контакт, телефон, размер, комментарий
     const { contact, phone, size, comment } = req.body;
     if (!contact || !phone || !size) {
       return res.status(400).json({ error: 'Для брендов нужны: контактное лицо, телефон и размер' });
