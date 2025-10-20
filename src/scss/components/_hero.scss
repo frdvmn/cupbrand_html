@@ -117,6 +117,9 @@
     @include mobile {
       top: 42%;
     }
+    @include tablet {
+      display: none;
+    }
   }
   &__bg,
   &__cup {
