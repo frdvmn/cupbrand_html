@@ -4,17 +4,19 @@
     position: relative;
   }
   &__title {
-    @include text-title
+    @include text-title;
   }
   &__how,
   &__benefits,
   &__form {
-    padding: 25px;
+    // padding: 25px;
+    @include section-inner-padding;
     background-color: var(--light-color);
     border-radius: 15px;
   }
   &__conditions {
-    padding: 25px;
+    // padding: 25px;
+    @include section-inner-padding;
     background-color: var(--dark-color);
     border-radius: 15px;
     color: var(--light-color);
@@ -27,7 +29,8 @@
   &__benefits-item,
   &__conditions-item {
     @include list-line;
-    @include adaptiv-font(20, 14);
+    // @include adaptiv-font(20, 14);
+    font-size: clamp(14px, 2vw, 20px);
   }
   &__form-input {
     border: 0;
@@ -62,13 +65,14 @@
   &__conditions-title,
   &__form-title,
   &__how-title {
-    @include adaptiv-font(32, 22);
+    // @include adaptiv-font(32, 22);
+    font-size: clamp(20px, 3vw, 36px);
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 20px;
   }
   &__how-subtitle {
-    @include adaptiv-font(20, 14);
+    font-size: clamp(14px, 2vw, 20px);
     margin: 0;
   }
   &__content {

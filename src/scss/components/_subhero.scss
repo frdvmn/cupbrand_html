@@ -19,7 +19,8 @@
     }
   }
   &__advantage {
-    padding: 20px;
+    // padding: 20px;
+    @include section-inner-padding;
     background-color: var(--light-color);
     border-radius: 15px;
     display: flex;
@@ -29,7 +30,8 @@
     margin-bottom: 15px;
     &--primary {
       background-color: var(--primary-color);
-      padding: 20px;
+      @include section-inner-padding;
+      // padding: 20px;
       color: white;
       border-radius: 15px;
       margin-right: 15px;
@@ -47,11 +49,13 @@
       margin: 0;
       margin-bottom: 0;
       font-weight: 700;
-      @include adaptiv-font(24, 16);
+      // @include adaptiv-font(24, 16);
+      font-size: clamp(16px, 2vw, 24px);
       font-family: inherit;
       margin-bottom: 20px;
       &--primary {
-        @include adaptiv-font(22, 14);
+        // @include adaptiv-font(22, 14);
+        font-size: clamp(14px, 2vw, 22px);
         font-weight: 700;
         margin: 0;
         text-transform: uppercase;
@@ -59,7 +63,9 @@
     }
     &-subtitle {
       margin: 0;
-      @include adaptiv-font(20, 14);
+      // @include adaptiv-font(20, 14);
+      font-size: clamp(14px, 2vw, 22px);
+
 
     }
   }
@@ -67,14 +73,15 @@
     background-color: var(--primary-color);
     background-image: url("../img/wrld.svg");
     background-repeat: no-repeat;
-    padding: 40px;
+    // padding: 40px;
+    @include section-inner-padding;
     padding-left: 50px;
     padding-right: 50px;
     border-radius: 15px;
     text-align: center;
     color: white;
     font-weight: 700;
-    @include adaptiv-font(48, 24);
+    font-size: clamp(20px, 4vw, 42px);
     text-transform: uppercase;
     background-position: right center;
     @include small-tablet {

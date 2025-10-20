@@ -11,33 +11,38 @@
     }
   }
   &__title {
-    @include text-title
+    @include text-title;
   }
   &__intro {
-    padding: 25px;
+    // padding: 25px;
+    @include section-inner-padding;
     border-radius: 15px;
     background-color: var(--light-color);
     margin-bottom: 25px;
     &-title {
-      @include adaptiv-font(36, 24);
+      // @include adaptiv-font(36, 24);
+      font-size: clamp(20px, 3vw, 36px);
       font-weight: 700;
       margin: 0;
     }
     &-text {
-      @include adaptiv-font(20, 14);
+      // @include adaptiv-font(20, 14);
+      font-size: clamp(14px, 2vw, 20px);
       font-weight: 400;
       margin-bottom: 0;
     }
   }
   &__form {
-    padding: 25px;
+    // padding: 25px;
+    @include section-inner-padding;
     background-color: var(--light-color);
     border-radius: 15px;
     flex-basis: 50%;
     .form {
       &__title {
         text-transform: uppercase;
-        @include adaptiv-font(36, 24);
+        // @include adaptiv-font(36, 24);
+        font-size: clamp(20px, 3vw, 36px);
         font-weight: 700;
         margin-top: 0;
         margin-bottom: 25px;
@@ -139,7 +144,8 @@
     }
   }
   &__steps {
-    padding: 25px;
+    // padding: 25px;
+    @include section-inner-padding;
     background-color: var(--light-color);
     border-radius: 15px;
     flex-basis: 50%;
@@ -151,7 +157,8 @@
     .steps {
       &__title {
         text-transform: uppercase;
-        @include adaptiv-font(36, 24);
+        // @include adaptiv-font(36, 24);
+        font-size: clamp(20px, 3vw, 36px);
         font-weight: 700;
         margin-top: 0;
         margin-bottom: 25px;
@@ -170,11 +177,15 @@
         padding: 20px 20px 20px 80px;
         border-radius: 15px;
         flex-grow: 1;
-        @include adaptiv-font(22, 18);
+        // @include adaptiv-font(22, 18);
+        font-size: clamp(16px, 2vw, 22px);
         font-weight: 600;
         display: flex;
         align-items: center;
         position: relative;
+        @include mobile {
+          padding: 15px 15px 15px 60px;
+        }
         &::before {
           content: attr(data-num);
           position: absolute;
@@ -186,6 +197,12 @@
           border-radius: 50%;
           text-align: center;
           line-height: 40px;
+          @include mobile {
+            left: 15px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+          }
         }
       }
     }
