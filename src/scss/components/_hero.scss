@@ -149,9 +149,23 @@
       width: 78vw;
     }
     @include mobile {
-      left: 15%;
-      top: 25%;
+      left: 12%;
+      top: 21%;
       width: 80vw;
+    }
+    @media (max-width: (493px)) {
+      left: 12%;
+      top: 24%;
+    }
+    @media (max-width: (450px)) {
+      left: 5%;
+      top: 24%;
+       width: 90vw;
+    }
+    @media (max-width: (370px)) {
+      left: 7%;
+      top: 26%;
+      width: 90vw;
     }
   }
   &__cup {
@@ -180,7 +194,12 @@
       top: 24%;
       width: 41vw;
     }
+    @media (max-width: (370px)) {
+      left: -7%;
+      top: 26%;
+      width: 48vw;
 
+    }
 
   }
   &__swiper-prev,
