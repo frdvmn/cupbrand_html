@@ -94,6 +94,8 @@
   &__highlight {
     background-color: var(--primary-color);
     border-radius: 50px;
+    // hyphens:auto;
+    display: inline-block;
   }
   &__vk {
     width: 34px;
