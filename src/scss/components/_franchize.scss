@@ -1,26 +1,29 @@
 .franchize {
   &__container {
     @include section-container;
+
     position: relative;
-    background-image: url("../img/fr_bg.png");
-    background-repeat: no-repeat;
-    background-position: center;
     min-height: 600px;
-  }
-  &__title {
-    @include text-title;
-    margin-bottom: 0;
-  }
-  &__subtitle {
-    text-transform: uppercase;
-    color: white;
-    background-color: var(--primary-color);
-    padding: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    display: inline-block;
-    border-radius: 15px;
-    margin: 0;
+    background-image: url("../img/fr_bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
+  &__title {
+    @include text-title;
+
+    margin-bottom: 0;
+  }
+
+  &__subtitle {
+    display: inline-block;
+    margin: 0;
+    border-radius: 15px;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: var(--primary-color);
+  }
 }

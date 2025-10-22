@@ -2,7 +2,6 @@
 @use "sass:map";
 
 @mixin flex-layout($options) {
-
   .#{map.get($options, parentClass)} {
     --gap: #{map.get($options, desktopGap)};
     --elems: #{map.get($options, desktopElems)};

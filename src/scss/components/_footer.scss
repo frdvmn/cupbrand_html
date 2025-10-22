@@ -1,6 +1,7 @@
 .footer {
   &__container {
     @include section-container;
+
     margin-bottom: 25px;
     font-weight: 600;
     text-align: center;

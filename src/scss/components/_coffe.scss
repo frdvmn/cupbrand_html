@@ -1,110 +1,126 @@
 .coffe {
   &__container {
     @include section-container;
+
     position: relative;
   }
+
   &__title {
     @include text-title;
   }
+
   &__how,
   &__benefits,
   &__form {
     // padding: 25px;
     @include section-inner-padding;
-    background-color: var(--light-color);
+
     border-radius: 15px;
+    background-color: var(--light-color);
   }
+
   &__conditions {
     // padding: 25px;
     @include section-inner-padding;
-    background-color: var(--dark-color);
+
     border-radius: 15px;
     color: var(--light-color);
+    background-color: var(--dark-color);
   }
+
   &__benefits-list,
   &__conditions-list {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
+
   &__benefits-item,
   &__conditions-item {
     @include list-line;
+
     // @include adaptiv-font(20, 14);
     font-size: clamp(14px, 2vw, 20px);
   }
+
   &__form-input {
-    border: 0;
-    background-color: white;
-    border-radius: 15px;
-    padding: 15px 20px 15px 20px;
     flex-grow: 1;
+    border: 0;
+    border-radius: 15px;
+    padding: 15px 20px;
     width: 100%;
     font-family: inherit;
     font-weight: 400;
+    background-color: #fff;
+
     &:focus {
-      outline-color: var(--primary-color);
-      outline-style: solid;
-      outline-width: 1px;
+      outline: var(--primary-color) solid 1px;
     }
+
     &:active {
-      outline-color: var(--primary-color);
-      outline-style: solid;
-      outline-width: 1px;
+      outline: var(--primary-color) solid 1px;
     }
   }
+
   &__form-submit {
     @include btn-base;
-    color: white;
-    &:hover{
-      background-color: var(--primary-lighten);
+
+    width: 100%;
+    color: #fff;
+
+    &:hover {
       border-color: var(--primary-lighten);
+      background-color: var(--primary-lighten);
       cursor: pointer;
     }
   }
+
   &__benefits-title,
   &__conditions-title,
   &__form-title,
   &__how-title {
-    // @include adaptiv-font(32, 22);
-    font-size: clamp(20px, 3vw, 36px);
-    font-weight: 700;
     margin-top: 0;
     margin-bottom: 20px;
+    font-weight: 700;
+
+    // @include adaptiv-font(32, 22);
+    font-size: clamp(20px, 3vw, 36px);
   }
+
   &__how-subtitle {
-    font-size: clamp(14px, 2vw, 20px);
     margin: 0;
+    font-size: clamp(14px, 2vw, 20px);
   }
+
   &__content {
     display: flex;
     gap: 25px;
+
     &-left,
     &-right {
-      flex-basis: 50%;
       display: flex;
+      flex-grow: 1;
+      flex-basis: 50%;
       flex-direction: column;
       gap: 25px;
-      flex-grow: 1;
     }
+
     @include for-desktop {
       flex-direction: column;
     }
   }
+
   &__form,
   &__benefits {
     flex-grow: 1;
   }
+
   &__form-inputs {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+
     div {
       flex-grow: 1;
     }
   }
-  &__form-submit {
-    width: 100%;
-  }
-
-
 }

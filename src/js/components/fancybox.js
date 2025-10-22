@@ -1,10 +1,8 @@
-import { Fancybox } from '@fancyapps/ui';
+import { Fancybox } from "@fancyapps/ui";
 
-Fancybox.bind('[data-fancybox]', {
+Fancybox.bind("[data-fancybox]", {
   animationEffect: "zoom-in-out",
   transitionEffect: "slide",
   placeFocusBack: false,
-  zoomEffect: false
+  zoomEffect: false,
 });
-
-

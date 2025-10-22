@@ -1,9 +1,11 @@
 .btn {
   @include btn-base;
-    color: var(--light-color);
-  &:hover{
-    background-color: var(--primary-lighten);
+
+  color: var(--light-color);
+
+  &:hover {
     border-color: var(--primary-lighten);
+    background-color: var(--primary-lighten);
     cursor: pointer;
   }
 }

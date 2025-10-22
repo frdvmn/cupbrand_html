@@ -1,22 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru" class="page">
+  @include('partials/head.html')
 
-@include('partials/head.html')
+  <body class="page__body no-select">
+    <div class="site-container">
+      @include('partials/header.html')
+      <main class="main">
+        @include('partials/hero.html') @include('partials/subhero.html')
+        @include('partials/brands.html') @include('partials/coffe.html')
+        @include('partials/franchize.html')
+      </main>
+      @include('partials/footer.html')
+    </div>
 
-<body class="page__body no-select">
-  <div class="site-container">
-    @include('partials/header.html')
-    <main class="main">
-      @include('partials/hero.html')
-      @include('partials/subhero.html')
-      @include('partials/brands.html')
-      @include('partials/coffe.html')
-      @include('partials/franchize.html')
-    </main>
-    @include('partials/footer.html')
-  </div>
-
-  @include('partials/modals.html')
-</body>
-
+    @include('partials/modals.html')
+  </body>
 </html>
