@@ -1,6 +1,6 @@
 import Swiper from "swiper";
-import { Autoplay, Navigation, Pagination, Scrollbar } from "swiper/modules";
-Swiper.use([Navigation, Pagination, Scrollbar, Autoplay]);
+import { Autoplay, Navigation, Pagination, Scrollbar, Mousewheel } from "swiper/modules";
+Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Mousewheel]);
 const swiper = new Swiper(".hero__swiper", {
   direction: "horizontal",
   slidesPerView: 1,
@@ -24,11 +24,11 @@ const swiper = new Swiper(".hero__swiper", {
     1024: {
       slidesPerView: 1,
       spaceBetween: 0,
-    },
-    observer: true,
-    observeParents: true,
-    updateOnWindowResize: true,
+    }
   },
+  observer: true,
+  observeParents: true,
+  updateOnWindowResize: true,
 });
 
 const subhero_swiper = new Swiper(".subhero__swiper", {
@@ -54,15 +54,15 @@ const subhero_swiper = new Swiper(".subhero__swiper", {
     1024: {
       slidesPerView: 2,
       spaceBetween: 20,
-    },
-    observer: true,
-    observeParents: true,
-    updateOnWindowResize: true,
+    }
   },
+  mousewheel: {
+    enabled: false,
+  },
+  observer: true,
+  observeParents: true,
+  updateOnWindowResize: true,
 });
 
-// window.addEventListener('resize', () => {
-//   swiper.update();
-// });
 
-// setTimeout(swiper, 1000);
+
