@@ -6,3 +6,4 @@ import "./functions/modal.js";
 import "./functions/burger.js";
 import "./functions/send-form.js";
 import "./functions/header-height.js";
+import "./functions/map.js";

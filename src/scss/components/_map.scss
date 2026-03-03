@@ -1,0 +1,303 @@
+.map {
+  &__container {
+    @include section-container;
+
+    position: relative;
+  }
+
+  &__title {
+    @include text-title;
+    margin-bottom: 0;
+  }
+  &__inline {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-bottom: 25px;
+  }
+
+  .filter-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.city-select {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    background: #fff;
+    color: #1a1a1a;
+    cursor: pointer;
+    min-width: 200px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.city-select:hover {
+    border-color: #999;
+}
+
+.city-select:focus {
+    border-color: #1a1a1a;
+}
+
+/* Карта */
+#map {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+/* Модальное окно */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 1;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transform: translateY(20px);
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    z-index: 10;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: #e5e5e5;
+    color: #1a1a1a;
+}
+
+.modal-image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.modal-content {
+    padding: 24px;
+}
+
+.modal-city {
+    font-size: 22px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+}
+
+.modal-location {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.modal-description {
+    color: #444;
+    line-height: 1.6;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-size: 13px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.modal-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.modal-button:hover {
+    background: #333;
+}
+
+/* Список точек города */
+.locations-list {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.locations-title {
+    font-size: 13px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.location-item {
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 8px;
+}
+
+.location-item:hover {
+    background: #f5f5f5;
+}
+
+.location-item.active {
+    background: #f0f0f0;
+}
+
+.location-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.location-address {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header h1 {
+        font-size: 18px;
+    }
+
+    .filter-container {
+        width: 100%;
+    }
+
+    .city-select {
+        flex: 1;
+        min-width: auto;
+    }
+
+    #map {
+        height: calc(100vh - 70px);
+        margin-top: 70px;
+    }
+
+    .modal-image {
+        height: 180px;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-city {
+        font-size: 20px;
+    }
+}
+
+/* Кастомный скроллбар */
+.modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* Стили для попапа на карте */
+.ymaps-2-1-79-balloon__content {
+    font-size: 14px;
+}
+}
