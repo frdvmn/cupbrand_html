@@ -129,17 +129,11 @@
     position: absolute;
     top: 50%;
     display: flex;
-    border-radius: 15px;
-    padding: 10px;
-    background-color: var(--primary-color);
+    flex-direction: column;
+    gap: 10px;
+    //background-color: var(--primary-color);
     transform: translateY(-50%);
-    transition: 0.2s ease all;
-
-    &:hover {
-      border-color: var(--primary-lighten);
-      background-color: var(--primary-lighten);
-      cursor: pointer;
-    }
+    //transition: 0.2s ease all;
 
     @include mobile {
       top: 42%;
@@ -155,7 +149,18 @@
     position: absolute;
     top: 42%;
   }
+  &__link {
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    padding: 10px;
+    transition: 0.2s ease all;
 
+    &:hover {
+      border-color: var(--primary-lighten);
+      background-color: var(--primary-lighten);
+      cursor: pointer;
+    }
+  }
   &__bg {
     left: 29%;
 

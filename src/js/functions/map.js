@@ -1,143 +1,313 @@
 // Данные: несколько точек в одном городе
 const locationsData = [
-    // Москва - 3 точки
+    // Санкт-Петербург - 1 точка
     {
-        id: 1,
-        cityId: 1,
-        cityName: "Москва",
-        coords: [55.7558, 37.6173],
-        name: "Офис на Красной площади",
-        address: "Красная площадь, 1",
-        description: "Главный офис компании в историческом центре Москвы.",
-        photo: "https://images.unsplash.com/photo-1547448520-180de2f0092e?w=800",
-        phone: "+7 (495) 123-45-67",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/moscow-center"
-    },
-    {
-        id: 2,
-        cityId: 1,
-        cityName: "Москва",
-        coords: [55.7415, 37.6205],
-        name: "Офис на Павелецкой",
-        address: "ул. Летниковская, 10",
-        description: "Современный офис в деловом районе.",
-        photo: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
-        phone: "+7 (495) 123-45-68",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/moscow-paveletskaya"
-    },
-    {
-        id: 3,
-        cityId: 1,
-        cityName: "Москва",
-        coords: [55.7961, 37.7123],
-        name: "Офис в Сокольниках",
-        address: "Сокольнический вал, 1",
-        description: "Офис рядом с парком Сокольники.",
-        photo: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800",
-        phone: "+7 (495) 123-45-69",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/moscow-sokolniki"
-    },
-
-    // Санкт-Петербург - 2 точки
-    {
-        id: 4,
+        id: 18,
         cityId: 2,
         cityName: "Санкт-Петербург",
-        coords: [59.9343, 30.3351],
-        name: "Офис на Невском",
-        address: "Невский проспект, 28",
-        description: "Офис в самом центре Санкт-Петербурга.",
-        photo: "https://images.unsplash.com/photo-1556610961-2fecc5927174?w=800",
-        phone: "+7 (812) 123-45-67",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/spb-nevsky"
-    },
-    {
-        id: 5,
-        cityId: 2,
-        cityName: "Санкт-Петербург",
-        coords: [59.8944, 30.2642],
-        name: "Офис на Московском",
-        address: "Московский проспект, 100",
-        description: "Офис в южной части города.",
-        photo: "https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?w=800",
-        phone: "+7 (812) 123-45-68",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/spb-moskovsky"
+        coords: [59.897226, 30.334005],
+        name: "Офис на Лиговском",
+        address: "Лиговский проспект, 283 лит А",
+        description: "Офис рядом с гипермаркетом Лента.",
     },
 
-    // Казань - 2 точки
+    // Казань - 4 точки
     {
-        id: 6,
+        id: 11,
         cityId: 3,
         cityName: "Казань",
-        coords: [55.8304, 49.0661],
-        name: "Офис на Баумана",
-        address: "ул. Баумана, 15",
-        description: "Офис на главной пешеходной улице Казани.",
-        photo: "https://images.unsplash.com/photo-1598894994155-5c754f2ae591?w=800",
-        phone: "+7 (843) 123-45-67",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/kazan-baumana"
+        coords: [55.796967, 49.208445],
+        name: "Офис на Космонавтов",
+        address: "ул. Космонавтов, 67а",
+        description: "Офис в Советском районе Казани.",
     },
     {
-        id: 7,
+        id: 12,
         cityId: 3,
         cityName: "Казань",
-        coords: [55.7961, 49.1061],
-        name: "Офис в центре",
-        address: "ул. Пушкина, 20",
-        description: "Современный офис в деловом центре.",
-        photo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
-        phone: "+7 (843) 123-45-68",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/kazan-center"
+        coords: [55.849140, 49.193083],
+        name: "Офис на Поперечно-Ноксинской",
+        address: "Поперечно-Ноксинская ул., 5 к8",
+        description: "Офис в Советском районе.",
+    },
+    {
+        id: 13,
+        cityId: 3,
+        cityName: "Казань",
+        coords: [55.725194, 49.173195],
+        name: "Офис на Гареева",
+        address: "ул. Рауиса Гареева, 110",
+        description: "Офис в Приволжском районе Казани.",
+    },
+    {
+        id: 14,
+        cityId: 3,
+        cityName: "Казань",
+        coords: [55.749836, 49.186175],
+        name: "Офис на Камая",
+        address: "ул. Профессора Камая, 2Б",
+        description: "Офис в Приволжском районе.",
     },
 
-    // Новосибирск - 1 точка
+    // Новосибирск - 4 точки
     {
-        id: 8,
+        id: 15,
         cityId: 4,
         cityName: "Новосибирск",
-        coords: [55.0084, 82.9357],
-        name: "Главный офис",
-        address: "Красный проспект, 50",
-        description: "Крупнейший офис компании в Сибири.",
-        photo: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
-        phone: "+7 (383) 123-45-67",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/novosibirsk"
+        coords: [55.021622, 82.917223],
+        name: "Офис на Советской",
+        address: "Советская ул., 5",
+        description: "Офис в Железнодорожном районе.",
+    },
+    {
+        id: 16,
+        cityId: 4,
+        cityName: "Новосибирск",
+        coords: [55.110239, 82.941037],
+        name: "Офис на Гребенщикова",
+        address: "ул. Гребенщикова, 8к1",
+        description: "Офис в Калининском районе.",
+    },
+    {
+        id: 17,
+        cityId: 4,
+        cityName: "Новосибирск",
+        coords: [55.100726, 82.932781],
+        name: "Офис на Тамбовской",
+        address: "Тамбовская ул., 41а",
+        description: "Офис в Калининском районе.",
+    },
+    {
+        id: 30,
+        cityId: 4,
+        cityName: "Новосибирск",
+        coords: [55.029203, 83.011258],
+        name: "Офис на Высоцкого",
+        address: "ул. Высоцкого, 1а",
+        description: "Офис в Октябрьском районе.",
     },
 
-    // Екатеринбург - 2 точки
+    // Екатеринбург - 3 точки
     {
-        id: 9,
+        id: 31,
         cityId: 5,
         cityName: "Екатеринбург",
-        coords: [56.8389, 60.6057],
-        name: "Офис на Ленина",
-        address: "проспект Ленина, 30",
-        description: "Офис в деловом центре Екатеринбурга.",
-        photo: "https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?w=800",
-        phone: "+7 (343) 123-45-67",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/ekb-lenina"
+        coords: [56.922442, 60.608605],
+        name: "Офис на Космонавтов (91г)",
+        address: "проспект Космонавтов, 91г",
+        description: "Офис в ЖК «Моменты».",
     },
     {
-        id: 10,
+        id: 32,
         cityId: 5,
         cityName: "Екатеринбург",
-        coords: [56.8519, 60.6289],
-        name: "Офис на Малышева",
-        address: "ул. Малышева, 51",
-        description: "Офис в центре города.",
-        photo: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
-        phone: "+7 (343) 123-45-68",
-        hours: "Пн-Пт: 9:00 - 18:00",
-        url: "/ekb-malysheva"
+        coords: [56.922241, 60.609862],
+        name: "Офис на Космонавтов (91Б)",
+        address: "проспект Космонавтов, 91Б",
+        description: "Офис в ЖК «Новатор».",
+    },
+    {
+        id: 33,
+        cityId: 5,
+        cityName: "Екатеринбург",
+        coords: [56.922241, 60.609862],
+        name: "Офис на Космонавтов (91в)",
+        address: "проспект Космонавтов, 91в",
+        description: "Офис в ЖК «Новатор», соседний корпус.",
+    },
+
+    // Воронеж - 1 точка
+    {
+        id: 19,
+        cityId: 6,
+        cityName: "Воронеж",
+        coords: [51.7322, 39.1777],
+        name: "Офис на Московском проспекте",
+        address: "Московский проспект, 145",
+        description: "Офис в Воронеже.",
+    },
+
+    // Пермь - 2 точки
+    {
+        id: 20,
+        cityId: 7,
+        cityName: "Пермь",
+        coords: [57.955572, 56.227251],
+        name: "Офис на Васильева",
+        address: "ул. Василия Васильева, 13а",
+        description: "Офис в Свердловском районе Перми.",
+    },
+    {
+        id: 21,
+        cityId: 7,
+        cityName: "Пермь",
+        coords: [58.006493, 56.293215],
+        name: "Офис на Лумумбы",
+        address: "проспект Патриса Лумумбы, 2",
+        description: "Офис в Мотовилихинском районе Перми.",
+    },
+
+    // Ставропольский край - 1 точка
+    {
+        id: 22,
+        cityId: 8,
+        cityName: "Ставропольский край",
+        coords: [45.047775, 41.615264],
+        name: "Офис в Сенгилеевском",
+        address: "с. Сенгилеевское, пл. Ленина, 8а",
+        description: "Офис в Ставропольском крае.",
+    },
+
+    // Махачкала - 2 точки
+    {
+        id: 23,
+        cityId: 9,
+        cityName: "Махачкала",
+        coords: [42.974696, 47.409047],
+        name: "Офис на Казбекова",
+        address: "проспект Казбекова, 32",
+        description: "Офис в пос. Семендер.",
+    },
+    {
+        id: 24,
+        cityId: 9,
+        cityName: "Махачкала",
+        coords: [42.970000, 47.412900],
+        name: "Офис на Акушинского",
+        address: "проспект Али-Гаджи Акушинского, 383",
+        description: "Офис в Советском районе Махачкалы.",
+    },
+
+    // Республика Коми - 4 точки
+    {
+        id: 25,
+        cityId: 10,
+        cityName: "Республика Коми",
+        coords: [67.495, 63.72],
+        name: "Офис в пгт Заполярный",
+        address: "пгт Заполярный, СП «Печорская ЦОФ»",
+        description: "Объект в Заполярном.",
+    },
+    {
+        id: 26,
+        cityId: 10,
+        cityName: "Республика Коми",
+        coords: [67.496600, 64.063000],
+        name: "Офис на Энгельса (Воркута)",
+        address: "ул. Энгельса, 3, Воркута",
+        description: "Офис в Воркуте.",
+    },
+    {
+        id: 27,
+        cityId: 10,
+        cityName: "Республика Коми",
+        coords: [67.4986, 64.0609],
+        name: "Офис на Ленина (Воркута)",
+        address: "ул. Ленина, 44, Воркута",
+        description: "Офис в центре Воркуты.",
+    },
+    {
+        id: 28,
+        cityId: 10,
+        cityName: "Республика Коми",
+        coords: [67.585166, 63.795360],
+        name: "Офис в пгт Воргашор",
+        address: "ул. Катаева, 29, пгт Воргашор",
+        description: "Офис в поселке Воргашор.",
+    },
+
+    // Ульяновск - 8 точек
+    {
+        id: 34,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.312711, 48.393313],
+        name: "Офис на Льва Толстого, 95",
+        address: "ул. Льва Толстого, 95",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 35,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.311000, 48.386100],
+        name: "Офис на Льва Толстого, 32",
+        address: "ул. Льва Толстого, 32",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 36,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.328943, 48.389882],
+        name: "Офис на Орлова",
+        address: "ул. Орлова, 21",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 37,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.301075, 48.319355],
+        name: "Офис на пл. Горького",
+        address: "пл. Горького, 11а",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 38,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.277089, 48.288561],
+        name: "Офис на Камышинской, 39",
+        address: "ул. Камышинская, 39",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 39,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.277373, 48.286881],
+        name: "Офис на Камышинской, 41",
+        address: "ул. Камышинская, 41",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 40,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.288258, 48.282794],
+        name: "Офис на Ефремова",
+        address: "ул. Ефремова, 52в",
+        description: "Офис в Ульяновске.",
+    },
+    {
+        id: 41,
+        cityId: 11,
+        cityName: "Ульяновск",
+        coords: [54.320399, 48.397284],
+        name: "Офис на Карла Маркса",
+        address: "ул. Карла Маркса, 13аК2",
+        description: "Офис в Ульяновске.",
+    },
+
+    // Челябинск - 2 точки
+    {
+        id: 42,
+        cityId: 12,
+        cityName: "Челябинск",
+        coords: [55.154, 61.429],
+        name: "Офис на Городской",
+        address: "Городская ул., 2Б",
+        description: "Офис в Курчатовском районе Челябинска.",
+    },
+    {
+        id: 43,
+        cityId: 12,
+        cityName: "Челябинск",
+        coords: [55.190000, 61.355700],
+        name: "Офис на Победы",
+        address: "проспект Победы, 290",
+        description: "Офис в Курчатовском районе Челябинска.",
     }
 ];
 
@@ -211,13 +381,10 @@ function init() {
 function openModal(location) {
     activeLocationId = location.id;
 
-    document.getElementById('modalImage').src = location.photo;
     document.getElementById('modalCity').textContent = location.cityName;
-    document.getElementById('modalLocation').innerHTML = `📍 ${location.name} — ${location.address}`;
+    document.getElementById('modalLocation').textContent = `${location.name} — ${location.address}`;
     document.getElementById('modalDescription').textContent = location.description;
-    document.getElementById('modalPhone').textContent = location.phone;
-    document.getElementById('modalHours').textContent = location.hours;
-    document.getElementById('modalButton').href = location.url;
+
 
     // Список всех точек этого города
     const cityLocations = locationsData.filter(loc => loc.cityName === location.cityName);
